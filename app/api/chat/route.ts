@@ -12,6 +12,7 @@ const openai = new OpenAI({
 })
 
 export async function POST(req: Request) {
+  
   const json = await req.json()
   const { messages, previewToken } = json
   const userId = (await auth())?.user.id
@@ -26,12 +27,18 @@ export async function POST(req: Request) {
     openai.apiKey = previewToken
   }
 
+  const allMessages = [
+    {"role": "system", 
+    "content": "You are a Chinese Zodiac Fortune Teller. Always ask for their Zodiac sign and birth year"}
+  ]
+
   const res = await openai.chat.completions.create({
     model: 'gpt-3.5-turbo',
-    messages,
+    messages: [...allMessages, ...messages],
     temperature: 0.7,
     stream: true
   })
+  console.log(res)
 
   const stream = OpenAIStream(res, {
     async onCompletion(completion) {
