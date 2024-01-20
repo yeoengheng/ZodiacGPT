@@ -6,13 +6,13 @@ import { useState } from "react";
 
 export default function AddFilesPanel() {
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
-    const handleFileChange =async (e:React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = async (e:React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length >0){
             const file = e.target.files[0];
             setSelectedFile(file)
         }
     }
-    const handleSubmit =async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if(selectedFile){
             const formData = new FormData()
@@ -42,18 +42,19 @@ export default function AddFilesPanel() {
                 <p className="text-zinc-400 text-sm">
                     Note: Only text file can be added.
                 </p>
-                <Input 
-                    type="file" 
-                    accept="text/*, application/pdf"
-                    onChange={handleFileChange}
-                />
-                <Button 
-                    type="submit" 
-                    className="disabled:opacity-25" 
-                    disabled={isInputEmpty}
-                    onSubmit={handleSubmit}>
-                    Submit
-                </Button>
+                <form className="flex flex-col space-y-4" onSubmit={handleSubmit}>
+                    <Input 
+                        type="file" 
+                        accept="text/*, application/pdf"
+                        onChange={handleFileChange}
+                    />
+                    <Button 
+                        type="submit" 
+                        className="disabled:opacity-25" 
+                        disabled={isInputEmpty}>
+                        Submit
+                    </Button>
+                </form>
             </div>
         </div>
     )
