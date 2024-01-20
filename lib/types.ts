@@ -57,7 +57,7 @@ export interface Database {
         }
         Insert: {
           content?: string | null
-          embedding?: string | null
+          embedding?: any | null
           id?: number
         }
         Update: {
