@@ -52,17 +52,17 @@ export interface Database {
       zodiac: {
         Row: {
           content: string | null
-          embedding: string | null
+          embedding: number[] | null
           id: number
         }
         Insert: {
           content?: string | null
-          embedding?: any | null
+          embedding?: number[] | null
           id?: number
         }
         Update: {
           content?: string | null
-          embedding?: string | null
+          embedding?: number[] | null
           id?: number
         }
         Relationships: []

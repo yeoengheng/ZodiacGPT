@@ -26,7 +26,6 @@ export default function AddFilesPanel() {
                     throw new Error(`HTTP Error: $(response.status`)
                 }
                 const responseData = await response.json()
-                
             } catch (error) {
                 console.error('Error', error)
             }

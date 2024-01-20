@@ -42,30 +42,9 @@ export async function POST(req: Request) {
         content: textValue,
         embedding
       })
-
     }
-    
   } catch (error) {
     console.log(error)
   }
-  // try {
-  //   if (file && file instanceof File){
-  //     console.log('hello')
-  //     const textValue = await file.text()
-  //     const embeddingResponses = await openai.embeddings.create({
-  //       model: 'text-embedding-ada-002',
-  //       input: textValue
-  //     })
-  //     console.log('No file received or not a File instance')
-  //     // const [{ embedding }] = embeddingResponses.data
-  //     // await supabase.from('zodiac').insert({
-  //     //   content: textValue, 
-  //     //   embedding,
-  //     // })
-  //   }
-  //   else{console.log('norgibg')}
-  // } catch (error) {
-  // }
-
-  return Response.json({message:data},{status:200})
+  return Response.json({message:'Done'},{status:200})
 }
