@@ -100,7 +100,7 @@ export interface Database {
       }
       match_zodiac: {
         Args: {
-          query_embedding: string
+          query_embedding: number[]
           match_threshold: number
           match_count: number
         }

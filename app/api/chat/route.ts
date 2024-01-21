@@ -1,6 +1,9 @@
 import { kv } from '@vercel/kv'
 import { OpenAIStream, StreamingTextResponse } from 'ai'
 import OpenAI from 'openai'
+import supabase from '@/lib/supabase/client'
+import { encodingForModel } from "js-tiktoken";
+
 
 import { auth } from '@/auth'
 import { nanoid } from '@/lib/utils'
@@ -27,18 +30,50 @@ export async function POST(req: Request) {
     openai.apiKey = previewToken
   }
 
-  const allMessages = [
-    {"role": "system", 
-    "content": "You are a Chinese Zodiac Fortune Teller. Always ask for their Zodiac sign and birth year"}
+  const length = messages.length
+
+  const embeddingResponse = await openai.embeddings.create({
+    model:'text-embedding-ada-002',
+    input:messages[length-1].content
+  })
+  const [{embedding}] = embeddingResponse.data
+  const {data:docs} = await supabase.rpc('match_zodiac',{
+    query_embedding: embedding,
+    match_threshold: 0.78,
+    match_count: 10
+  })
+  const tokenizer = encodingForModel('gpt-3.5-turbo')
+  let tokenCount = 0 
+  let contentText = ''
+  if (docs){
+    for (let i = 0; i< docs.length; i++){
+      const doc = docs[i]
+      const content = doc.content
+      const encoded = tokenizer.encode(content)
+      tokenCount += encoded.length
+
+      if (tokenCount> 1500){
+        break 
+      }
+      contentText += `${content.trim()}\n---\n`
+    }  
+  }
+
+  const SysMessages = [{
+    "role": "system", 
+    "content": `You are a Chinese Zodiac Fortune Teller. This year is the year of the Wood Dragon.
+    Always ask for their Zodiac sign and birth year
+    Do apply the given context to enrich your answers: ${contentText}
+    `
+  }
   ]
 
   const res = await openai.chat.completions.create({
     model: 'gpt-3.5-turbo',
-    messages: [...allMessages, ...messages],
+    messages: [...SysMessages, ...messages],
     temperature: 0.7,
     stream: true
   })
-  console.log(res)
 
   const stream = OpenAIStream(res, {
     async onCompletion(completion) {

@@ -31,6 +31,7 @@
     "focus-trap-react": "^10.2.3",
     "framer-motion": "^10.16.12",
     "geist": "^1.2.0",
+    "js-tiktoken": "^1.0.8",
     "nanoid": "^5.0.4",
     "next": "14.0.5-canary.38",
     "next-auth": "5.0.0-beta.4",
@@ -45,7 +46,8 @@
     "react-textarea-autosize": "^8.5.3",
     "remark-gfm": "^3.0.1",
     "remark-math": "^5.1.1",
-    "stream": "^0.0.2"
+    "stream": "^0.0.2",
+    "tiktoken": "^1.0.11"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",
