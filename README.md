@@ -6,7 +6,7 @@
 ## Overview
 With the 2024 Lunar New Year coming, I thought I try my hand at building a Chinese Zodiac Fortune Teller and get familiar with the RAG implementation. A lot of the features I added are an overkill, but why the hell not (: 
 
-## Original Features
+## Original Features from a Starter Kit
 
 - [Next.js](https://nextjs.org) App Router
 - React Server Components (RSCs), Suspense, and Server Actions
