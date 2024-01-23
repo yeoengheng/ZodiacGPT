@@ -19,4 +19,9 @@
 - [NextAuth.js](https://github.com/nextauthjs/next-auth) for authentication
 
 ## Changes made 
-- Adding a RAG Pipeline (In progress)
+- Added a RAG Pipeline to utilize external knowledge 
+- External knowledge = A bunch of Chinese Zodiac articles vectorized and stored in Supabase
+- RAG Pipeline has a rephraser, tokenizer to improve prompt quality.
+- Add a knowledge graph to enable better multi-hop retrievals. (In progress)
+- Remove the need to have users to login before they can try the bot. Will still gate it tho. (In progress) 
+- Better UI/UX (In progress) 
