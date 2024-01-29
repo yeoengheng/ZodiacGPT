@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { kv } from '@vercel/kv'
+import {cookies} from 'next/headers'
 
 import { auth } from '@/auth'
 import { type Chat } from '@/lib/types'
@@ -126,3 +127,4 @@ export async function shareChat(id: string) {
 
   return payload
 }
+
