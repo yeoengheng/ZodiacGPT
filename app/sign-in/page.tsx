@@ -1,7 +1,6 @@
 import { auth } from '@/auth'
 import { LoginButton } from '@/components/login-button'
 import { redirect } from 'next/navigation'
-import Cookies from 'js-cookie'
 
 export default async function SignInPage() {
   const session = await auth()
@@ -10,7 +9,7 @@ export default async function SignInPage() {
     redirect('/')
   }
   else {
-    Cookies.set('credit', '5', { expires: 30, path: '/' });
+    await fetch('/api/credit')
   }
   return (
     <div className="flex h-[calc(100vh-theme(spacing.16))] items-center justify-center py-10">
